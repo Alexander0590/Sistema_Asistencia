@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia</title>
+</head>
+<body>
+  <div class="container-fluid" id="mainContainer">
+    <div id="centeredFormWrapper" class="d-flex justify-content-center align-items-center mt-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-8 col-lg-6" id="formColumn">
+          <div class="card shadow" id="formCard">
+            <div class="card-header text-center" id="cardHeader">
+              <b><i class="bi bi-calendar-check"></i> REGISTRO DE ASISTENCIA</b>
+            </div>
+            <div class="card-body" id="formCardBody">
+              <form class="row g-3" id="attendanceForm">
+                <!-- Lector de Código -->
+                <div class="col-md-12" id="codigoContainer">
+                  <label for="codigo" class="form-label" id="codigoLabel">
+                    <i class="bi bi-upc-scan"></i> Escanea tu código
+                  </label>
+                  <input type="text" class="form-control text-center fs-5" id="codigo" placeholder="Escanea aquí" autofocus required>
+                </div>
+                
+                <!-- Fecha -->
+                <div class="col-md-6" id="fechaContainer">
+                  <label for="fecha" class="form-label" id="fechaLabel">
+                    <i class="bi bi-calendar"></i> Fecha de Registro
+                  </label>
+                  <input type="text" class="form-control" id="fecha" disabled>
+                </div>
+
+                <!-- Hora de Entrada -->
+                <div class="col-md-6" id="horaEntradaContainer">
+                  <label for="horaEntrada" class="form-label" id="horaEntradaLabel">
+                    <i class="bi bi-clock"></i> Hora de Entrada
+                  </label>
+                  <input type="text" class="form-control" id="horaEntrada" disabled>
+                </div>
+
+                <!-- Hora de Salida -->
+                <div class="col-md-6" id="salidaContainer">
+                  <label for="horaSalida" class="form-label" id="horaSalidaLabel">
+                    <i class="bi bi-clock"></i> Hora de Salida
+                  </label>
+                  <input type="text" class="form-control" id="horaSalida" disabled>
+                </div>
+                
+                <!-- Botones -->
+                <div class="col-12 text-center" id="buttonContainer">
+                  <button type="button" class="btn btn-success" id="btnRegistrarEntrada" onclick="registrarEntrada()">
+                    <i class="bi bi-check-circle"></i> Registrar Entrada
+                  </button>
+                  <button type="button" class="btn btn-primary" id="btnRegistrarSalida" onclick="registrarSalida()">
+                    <i class="bi bi-check-circle"></i> Registrar Salida
+                  </button>
+                  <button type="reset" class="btn btn-secondary" id="btnLimpiar">
+                    <i class="bi bi-arrow-repeat"></i> Limpiar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
