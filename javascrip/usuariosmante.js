@@ -29,9 +29,14 @@
             dataType: 'json', 
             success: function (response) {
                 if (response.status === 'success') {
-                    alert('Usuario registrado correctamente');
-                    $('#usuarioform')[0].reset(); 
-
+                    Swal.fire({
+                        title: "¡Registro exitoso!",
+                        text: "Tu cuenta ha sido creada correctamente.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        $('#usuarioform')[0].reset(); 
+                    });
                 } else {
                     alert('Error: ' + response.message);
                 }

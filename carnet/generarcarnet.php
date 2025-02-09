@@ -20,12 +20,10 @@ if ($personal) {
     $cargo = $personal['cargo'];
     $foto64 = $personal['foto']; 
      
-  // Eliminar el prefijo "data:image/jpeg;base64," si está presente
   if (strpos($foto64, 'data:image/jpeg;base64,') === 0) {
     $foto64 = str_replace('data:image/jpeg;base64,', '', $foto64);
 }
 
-// Convertir la foto Base64 a una imagen temporal
 $fotoBinaria = base64_decode($foto64);
 if ($fotoBinaria === false) {
     die("Error al decodificar la imagen Base64.");
@@ -34,6 +32,7 @@ if ($fotoBinaria === false) {
 $rutaFoto = 'temp_foto_personal.jpg'; 
 file_put_contents($rutaFoto, $fotoBinaria);
 $logoEmpresa = '../img/muni.png';
+
     // Crear el PDF con tamaño ajustado al carnet
     $pdf = new TCPDF('L', 'mm', array(85, 55), true, 'UTF-8', false);
     $pdf->SetMargins(0, 0, 0);
@@ -55,15 +54,17 @@ $logoEmpresa = '../img/muni.png';
     $pdf->SetXY(35, 5);
     $pdf->Cell(45, 10, 'CARNET DE ASISTENCIA', 0, 1, 'C', 0);
 
+    // Código del personal
+    $pdf->SetXY(35, 28);
+    $pdf->SetFont('helvetica', '', 9);
+    $pdf->MultiCell(45, 5, 'Dni: ' . $codigo, 0, 'L', 0, 1);
+
     // Configuración para nombre
     $pdf->SetXY(35, 18);
     $pdf->SetFont('helvetica', '', 10);
     $pdf->MultiCell(45, 5, 'Nombre: ' . $nombre, 0, 'L', 0, 1);
 
-    // Código del personal
-    $pdf->SetXY(35, 28);
-    $pdf->SetFont('helvetica', '', 9);
-    $pdf->MultiCell(45, 5, 'Código: ' . $codigo, 0, 'L', 0, 1);
+
 
     // cargo dinámico
     $pdf->SetXY(35, 35);
@@ -81,8 +82,8 @@ $logoEmpresa = '../img/muni.png';
     $pdf->AddPage(); 
 
     // Establecer fondo blanco
-    $pdf->SetFillColor(255, 255, 255); // Color de fondo blanco
-    $pdf->Rect(0, 0, 85, 55, 'F'); // Fondo blanco
+    $pdf->SetFillColor(255, 255, 255); 
+    $pdf->Rect(0, 0, 85, 55, 'F'); 
 
     // Añadir el logo de la empresa en el centro
     $pdf->Image($logoEmpresa, 25, 12, 35, 35, '', '', '', true);
@@ -91,7 +92,7 @@ $logoEmpresa = '../img/muni.png';
 
     // Exportar el PDF
     $filename = 'carnet_' . $codigo . '.pdf';
-    $pdf->Output($filename, 'D'); // 'D' para forzar la descarga
+    $pdf->Output($filename, 'D'); 
     exit;
 } else {
     die("personal no encontrado.");

@@ -13,7 +13,14 @@
         let fotoInput = $('#pfoto')[0]; 
     
         if (!dni || !nombres || !modalidad || !cargo || !fechanaci || !edad || !sueldo || !fotoInput.files[0]) {
-            alert('Por favor, completa todos los campos del formulario y selecciona una foto.');
+            Swal.fire({
+                title: "¡Error!",
+                text: "Por favor, completa todos los campos del formulario y selecciona una foto.",
+                icon: "error",
+                confirmButtonText: "OK"
+            }).then(() => {
+                $('#personalform')[0].reset();  
+            });
             return; 
         }
 
@@ -39,15 +46,28 @@
                 dataType: 'json', 
                 success: function (response) {
                     if (response.status === 'success') {
-                        alert('Persona registrada correctamente');
-                        $('#personalform')[0].reset(); 
+                        Swal.fire({
+                            title: "¡Registro exitoso!",
+                            text: "Tu registro ha sido creado correctamente.",
+                            icon: "success",
+                            confirmButtonText: "OK"
+                        }).then(() => {
+                            $('#personalform')[0].reset();  
+                        });
+                        
+                        
                     } else {
-                        alert('Error: ' + response.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message,
+                            confirmButtonText: 'Aceptar'
+                        });
                     }
                 },
                 error: function (error) {
                     console.error('Error en la solicitud AJAX:', error);
-                    alert('Error al registrar persona. Por favor, inténtalo de nuevo.');
+                   
                 }
             });
         };
@@ -55,20 +75,39 @@
     });
 
 
-//elinminar usuario
+//elinminar personal
 $(document).off('click', '.perEliminar').on('click', '.perEliminar', function (event) {
     event.preventDefault();
     let id = $(this).data('id');
+    
     $.ajax({
         url: 'proceso/mantenpersonal.php?action=delete&id=' + id,
         type: 'GET',
         success: function () {
-            alert('Usuario eliminado');
-            $("#vistas").fadeOut(200, function () {
-                $(this).load("view/listadepersonal.php", function () {
-                    $(this).fadeIn(200);
-                });
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "No podrás revertir esta acción.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "No, cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "¡Eliminado!",
+                        text: "Tu registro ha sido eliminado correctamente.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        $("#vistas").fadeOut(200, function () {
+                            $(this).load("view/listadepersonal.php", function () {
+                                $(this).fadeIn(200);
+                            });
+                        });
+                    });
+                }
             });
+            
         },
         error: function (error) {
             console.error('Error al eliminar usuario:', error);
@@ -77,7 +116,7 @@ $(document).off('click', '.perEliminar').on('click', '.perEliminar', function (e
     });
 });
 
-//traer datos al formulario
+//traer datos al formulario personal
 $(document).on('click', '.perEditar', function () {
     let id = $(this).data('id'); 
     $("#vistas").fadeOut(200, function () {

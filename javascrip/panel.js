@@ -54,6 +54,21 @@ $(document).ready(function () {
       e.preventDefault(); 
       $("#vistas").load("view/asistencia.html"); 
     });
+
+    $("#cerrarsesion").click(function(){
+      Swal.fire({
+          title: "¿Estás seguro de que quieres salir?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, salir",
+          cancelButtonText: "No, quedarme"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = "proceso/cerrar_sesion.php"; // O usa window.close();
+          }
+      });
+  });
+  
   });
 
 

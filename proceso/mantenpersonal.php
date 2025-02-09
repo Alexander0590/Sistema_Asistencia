@@ -17,8 +17,8 @@
             $foto64 = $_POST['foto'];
             $modalidad_texto = ($modalidad == 1) ? "D.L N°276 - Carrera Administrativa" : "D.L N°728 - Obrero";
              // busqueda de dni 
-             $bus_query = "SELECT iddni FROM personal WHERE iddni = '$dni'";
-             $result = mysqli_query($cnn, $bus_query);
+             $dni_query = "SELECT iddni FROM personal WHERE iddni = '$dni'";
+             $result = mysqli_query($cnn, $dni_query);
  
              if (mysqli_num_rows($result) > 0) {
                  echo json_encode(["status" => "error", "message" => "El DNI ya está registrado"]);

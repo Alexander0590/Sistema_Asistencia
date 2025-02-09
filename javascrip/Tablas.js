@@ -24,6 +24,7 @@ $('#tusu').DataTable({
     },
     
     
+    
 });
 
 
@@ -34,7 +35,7 @@ $('#tper').DataTable({
     "ordering": true,
     "info": true,
     "autoWidth": false,
-    "lengthMenu": [5, 10, 30, 50,100],  
+    "lengthMenu": [10, 30, 50,100],  
     "scrollX": true, 
     "responsive": true,
     "language": {
@@ -158,7 +159,6 @@ function obtenerUsuarios() {
         });
     }
 
-    // Llamar a la función para obtener los usuarios al cargar la página
     obtenerUsuarios();
     obtenerpersonal();
 

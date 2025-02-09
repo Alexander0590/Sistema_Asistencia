@@ -23,7 +23,7 @@ if($_SESSION['rol']==="1"){
     <script src="javascrip/jquery-3.7.1.min.js"></script> 
    <link rel="stylesheet" href="estilos/estilos_panel.css">
    <link rel="stylesheet" href="estilos/estilosdeviews.css">
-   <link rel="shortcut icon" href="img/Logo_Tecnología_Geek_Ilustrado_Verde_y_Azul-removebg-preview.png" type="image/x-icon">
+   <link rel="shortcut icon" href="img/muni.png" type="image/x-icon">
 </head>
 <body class="animate__animated animate__fadeIn">
   
@@ -63,7 +63,7 @@ if($_SESSION['rol']==="1"){
      
       </div>
         <div class="modal-footer" style="border-top: 1px solid #8773e7;">
-       <a href="proceso/cerrar_sesion.php" class="btn btn-secondary" style="background-color: #8773e7; color: #ffffff;">
+       <a href="#" id="cerrarsesion" class="btn btn-secondary" style="background-color: #8773e7; color: #ffffff;">
           <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
       </a>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #8773e7; color: #ffffff;">
@@ -132,7 +132,8 @@ if($_SESSION['rol']==="1"){
  <img id="imgdeinicio"  src="img/muni.png" alt="">
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="javascrip/panel.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="javascrip/usuariosmante.js"></script>
