@@ -1,6 +1,20 @@
 const sidebar = document.getElementById('mySidebar');
 
-
+//mensaje de bienvenida
+const urlParams = new URLSearchParams(window.location.search);
+    const nombre = urlParams.get('bienvenido');
+    if (nombre) {
+        Swal.fire({
+            title: "¡Bienvenido!",
+            text: `Hola, ${nombre}. ¡Que tengas un gran día! `,
+            icon: "info",
+            confirmButtonText: "OK"
+          }).then(() => {
+            // Eliminar el parámetro 
+            const newUrl = window.location.pathname; 
+            window.history.replaceState({}, document.title, newUrl);
+        });
+    }
 //expander la barra horizontal
 sidebar.addEventListener('mouseover', function() {
     sidebar.classList.add('expanded');

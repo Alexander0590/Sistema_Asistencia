@@ -35,7 +35,7 @@ $('#tper').DataTable({
     "ordering": true,
     "info": true,
     "autoWidth": false,
-    "lengthMenu": [10, 30, 50,100],  
+    "lengthMenu": [5,10, 30, 50,100],  
     "scrollX": true, 
     "responsive": true,
     "language": {

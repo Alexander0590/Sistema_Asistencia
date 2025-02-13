@@ -93,7 +93,7 @@
                 <label for="foto" class="form-label">
                   <i class="bi bi-camera"></i> Foto
                 </label>
-                <input type="file" class="form-control" id="pfoto" placeholder="Inserta tu imagen aqui" accept=".jpg, .jpeg, .png" required>
+                <input type="file" class="form-control" id="pfoto" accept=".jpg, .jpeg" required>
               </div>
                 <div class="col-md-4" >
                     <label for="estado" class="form-label" >

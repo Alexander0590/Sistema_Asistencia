@@ -31,7 +31,7 @@ if($_SESSION['rol']==="1"){
 <div class="container-tp" id="bhoriz">
         <div class="perfil" data-bs-toggle="modal" data-bs-target="#perfilModal">
             <div id="foto">
-                <img src="img/2.png" alt="Foto de perfil">
+                <img src="img/usuariodefecto.png" alt="Foto de perfil">
             </div>
             <div id="nombre">
                 <h5>
@@ -51,7 +51,7 @@ if($_SESSION['rol']==="1"){
       </div>
       <div class="modal-body ">
         <div id="foto-modal " class="text-center mb-3">
-          <img src="img/2.png" alt="Foto de perfil" class="img-fluid rounded-circle" style="width: 150px; height: 150px; margin-bottom: 10px ;">
+          <img src="img/usuariodefecto.png" alt="Foto de perfil" class="img-fluid rounded-circle" style="width: 150px; height: 150px; margin-bottom: 10px ;">
         </div>
         <div text-fill>
         <p><strong>Nombre:</strong> <?php echo htmlspecialchars($_SESSION['nombre']); ?></p>
@@ -125,7 +125,7 @@ if($_SESSION['rol']==="1"){
             <a href="#">Asistencia por empleado</a>
         </div>
     </div>
-    <a href="proceso/cerrar_sesion.php"><i class="bi bi-box-arrow-left"></i><span>Cerrar Sesión</span></a>
+    <a href="#" id="cerrarsesion"><i class="bi bi-box-arrow-left"></i><span>Cerrar Sesión</span></a>
 </div>
 
 <div id="vistas">

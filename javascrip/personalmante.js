@@ -18,12 +18,29 @@
                 text: "Por favor, completa todos los campos del formulario y selecciona una foto.",
                 icon: "error",
                 confirmButtonText: "OK"
-            }).then(() => {
-                $('#personalform')[0].reset();  
             });
             return; 
         }
+        
+        if (!/^\d{8}$/.test(dni)) {
+            Swal.fire({
+                title: "¡Error!",
+                text: "El DNI debe contener exactamente 8 dígitos.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+            return;
+        }
 
+        if (isNaN(edad) || edad <= 18) {
+            Swal.fire({
+                title: "¡Error!",
+                text: "La edad debe ser mayor a 18 años.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+            return;
+        }
         let fotoFile = fotoInput.files[0]; 
         let reader = new FileReader(); 
     
@@ -52,7 +69,45 @@
                             icon: "success",
                             confirmButtonText: "OK"
                         }).then(() => {
-                            $('#personalform')[0].reset();  
+                            Swal.fire({
+                                title: "¿Desea proceder con la impresión del carnet?",
+                                icon: "question",
+                                showCancelButton: true,
+                                confirmButtonText: "Sí, imprimir",
+                                cancelButtonText: "No, cancelar"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        url: 'carnet/generarcarnet.php', 
+                                        type: 'GET',
+                                        data: { id: dni}, 
+                                        xhrFields: {
+                                            responseType: 'blob' 
+                                        },
+                                        success: function (response) {
+                                            let blob = new Blob([response], { type: 'application/pdf' });
+                                            let link = document.createElement('a');
+                                            link.href = window.URL.createObjectURL(blob);
+                                            link.download = 'carnet_' + dni + '.pdf'; 
+                                            link.click();
+                                            Swal.fire({
+                                                title: "¡Impreso!",
+                                                text: "Tu carnet ha sido Impreso correctamente.",
+                                                icon: "success",
+                                                confirmButtonText: "OK"
+                                            }).then(() => {
+                                                $('#personalform')[0].reset();
+                                            });
+                                        },
+                                        error: function (error) {
+                                            console.error("Error al generar el carnet:", error);
+                                        }
+                                    });
+                                }else{
+                                    $('#personalform')[0].reset();
+                                }
+                            });
+                              
                         });
                         
                         
@@ -204,9 +259,10 @@ $(document).on('click', '#btacuper', function () {
         lector.readAsDataURL(archivo); 
     } else {
         foto = $('#pfotoBase64').val();
-        console.log(foto); 
+        
     }
     
+    console.log(foto);
 
     $.ajax({
         url: 'proceso/mantenpersonal.php?action=update',

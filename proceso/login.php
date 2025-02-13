@@ -29,12 +29,13 @@ if ($result->num_rows > 0) {
     $_SESSION['usuario'] = $row['usuario'];
 
     // Redirigir al panel de control
-    header("Location: ../panel_control.php");
+    header("Location: ../panel_control.php?bienvenido=" . urlencode($row['datos']));
     exit();
 } else {
+
+ $dato="Usuario o contraseña incorrectos";
     // Usuario o contraseña incorrectos
-    $dato = "Usuario o Contraseña Incorrectos";
-    header("Location: ../index.php?dato=" . urlencode($dato));
+    header("Location: ../index.php?dato=". urldecode($dato));
     exit();
 }
 
