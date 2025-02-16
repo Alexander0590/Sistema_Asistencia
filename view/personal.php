@@ -33,9 +33,10 @@
             <div class="card-header text-center" id="cardHeader">
               <b><i class="bi bi-person-plus"></i> REGISTRO DE PERSONAL </b>
             </div>
-            <input type="hidden" id="pfotoBase64" name="pfotoBase64">
             <div class="card-body" id="formCardBody">
               <form class="row g-3" id="personalform">
+              <input type="hidden" id="viejo_dni" name="viejo_dni">
+              <input type="hidden" id="pfotoBase64" name="pfotoBase64">
                  <div class="col-md-2" >
                     <label for="nombreUsuario" class="form-label">
                     <i class="bi bi-file-earmark-binary"></i> DNI

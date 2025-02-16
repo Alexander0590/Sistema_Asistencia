@@ -51,6 +51,7 @@
      case 'update':
          // Actualizar un usuario
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+             $dnivie=$_POST['dnivie'];
              $dni = $_POST['dni'];
              $nombres = $_POST['nombres'];
              $modalidad = $_POST['modalidad'];
@@ -71,8 +72,10 @@
              }else{
                 $estado1="inactivo";
              }
-             $query = "UPDATE personal SET  iddni= $dni , nombres_apellidos = '$nombres', modalidad_contratacion = '$modalidad1', cargo = '$cargo', fecha_nacimiento= '$fechanaci' ,edad = $edad ,sueldo= $sueldo ,foto = '$foto' ,estado = '$estado1'
-              WHERE iddni = $dni";
+             
+             
+             $query = "UPDATE personal SET  iddni= '$dni' , nombres_apellidos = '$nombres', modalidad_contratacion = '$modalidad1', cargo = '$cargo', fecha_nacimiento= '$fechanaci' ,edad = $edad ,sueldo= $sueldo ,foto = '$foto' ,estado = '$estado1'
+              WHERE iddni = '$dnivie'";
              if (mysqli_query($cnn, $query)) {
                  echo json_encode(["status" => "success"]);
              } else {

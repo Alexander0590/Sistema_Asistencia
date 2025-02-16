@@ -73,6 +73,7 @@ function obtenerUsuarios() {
                     }
                     $('#tusu').DataTable().row.add([
                         index + 1,
+                        usuarios.idusudni,
                         usuarios.datos,
                         usuarios.usuario,
                         usuarios.password,
@@ -80,10 +81,10 @@ function obtenerUsuarios() {
                         usuarios.Telefono,
                         rol1,
                         `
-                        <button  class="btn btn-primary usuEditar" data-id="${usuarios.idusu}">
+                        <button  class="btn btn-primary usuEditar" data-id="${usuarios.idusudni}">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button  class="btn btn-danger usuEliminar" data-id="${usuarios.idusu}">
+                        <button  class="btn btn-danger usuEliminar" data-id="${usuarios.idusudni}">
                             <i class="bi bi-trash"></i>
                         </button>
                         `

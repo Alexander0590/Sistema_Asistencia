@@ -55,19 +55,19 @@ $logoEmpresa = '../img/muni.png';
     $pdf->Cell(45, 10, 'CARNET DE ASISTENCIA', 0, 1, 'C', 0);
 
     // Código del personal
-    $pdf->SetXY(35, 28);
+    $pdf->SetXY(35, 26);
     $pdf->SetFont('helvetica', '', 9);
-    $pdf->MultiCell(45, 5, 'Dni: ' . $codigo, 0, 'L', 0, 1);
+    $pdf->Cell(45, 5, 'Dni: ' . $codigo, 0, 0, 'L');
 
     // Configuración para nombre
-    $pdf->SetXY(35, 18);
+    $pdf->SetXY(35, 16);
     $pdf->SetFont('helvetica', '', 10);
     $pdf->MultiCell(45, 5, 'Nombre: ' . $nombre, 0, 'L', 0, 1);
 
 
 
     // cargo dinámico
-    $pdf->SetXY(35, 35);
+    $pdf->SetXY(35, 32);
     $pdf->SetFont('helvetica', '', 9);
     $pdf->MultiCell(45, 5, 'Cargo: ' . $cargo, 0, 'L', 0, 1);
 
@@ -78,7 +78,7 @@ $logoEmpresa = '../img/muni.png';
         'fgcolor' => array(0, 0, 0),
         'bgcolor' => array(255, 255, 255),
     );
-    $pdf->write1DBarcode($codigo, 'C128', 38, 42, 50, 8, 0.4, $barcodeStyle, 'N');
+    $pdf->write1DBarcode($codigo, 'C128', 38, 41, 50, 8, 0.4, $barcodeStyle, 'N');
     $pdf->AddPage(); 
 
     // Establecer fondo blanco

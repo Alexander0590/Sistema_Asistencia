@@ -184,6 +184,7 @@ $(document).on('click', '.perEditar', function () {
                 dataType: 'json',
                 success: function (data) {
                     if ($('#personalform').length) {
+                        $('#viejo_dni').val(data.iddni);
                         $('#pdni').val(data.iddni); 
                         $('#pnombreape').val(data.nombres_apellidos);
 
@@ -235,6 +236,7 @@ $(document).on('click', '.perEditar', function () {
 
 // ACTUALIZAR PERSONAL
 $(document).on('click', '#btacuper', function () { 
+    let dniviejo= $('#viejo_dni').val();
     let dni = $('#pdni').val();
     let nombres = $('#pnombreape').val();
     let modalidad = $('#pmodalidad').val();
@@ -262,12 +264,12 @@ $(document).on('click', '#btacuper', function () {
         
     }
     
-    console.log(foto);
 
     $.ajax({
         url: 'proceso/mantenpersonal.php?action=update',
         type: 'POST',
         data: {
+            dnivie:dniviejo,
             dni: dni,
             nombres: nombres,
             modalidad: modalidad,

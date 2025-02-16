@@ -20,15 +20,21 @@
             <div class="card-body" id="formCardBody">
               <form class="row g-3" id="usuarioform">
                  <!-- Datos  del usuario-->
-                 <input type="hidden" id="idUsuario" name="idUsuario"> <!-- Campo oculto para el ID -->
-                 <div class="col-md-6" id="nombreUsuarioContainer">
+                 <input type="hidden" id="viejo_dni" name="viejo_dni">
+                 <div class="col-md-2" id="nombreUsuarioContainer">
+                    <label for="nombreUsuario" class="form-label">
+                      <i class="bi bi-file-earmark-binary"></i> Dni
+                    </label>
+                    <input type="number" class="form-control" id="dniusu" placeholder="Dni" max="99999999" oninput="validarLongitud(this)" required>
+                  </div>
+                 <div class="col-md-5" id="nombreUsuarioContainer">
                     <label for="nombreUsuario" class="form-label">
                       <i class="bi bi-person-square"></i> Datos
                     </label>
                     <input type="text" class="form-control" id="datosu" placeholder="Datos del usuario" required>
                   </div>
 
-                <div class="col-md-6" id="nombreUsuarioContainer">
+                <div class="col-md-5" id="nombreUsuarioContainer">
                   <label for="nombreUsuario" class="form-label" id="nombreUsuarioLabel">
                     <i class="bi bi-person"></i> Nombre de Usuario
                   </label>

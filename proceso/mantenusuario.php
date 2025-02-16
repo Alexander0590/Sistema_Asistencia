@@ -7,6 +7,7 @@
      case 'create':
          // Crear un nuevo usuario
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $dni=$_POST['dni'];
             $datos = $_POST['datos'];
              $usuario = $_POST['usuario'];
              $password = $_POST['password'];
@@ -14,7 +15,7 @@
              $telefono = $_POST['telefono'];
              $rol = $_POST['rol'];
              
-             $query = "INSERT INTO usuarios (datos, usuario, password, email,  rol ,telefono) VALUES ('$datos', '$usuario', '$password', '$email',  '$rol' ,$telefono)";
+             $query = "INSERT INTO usuarios (idusudni,datos, usuario, password, email,  rol ,telefono) VALUES ('$dni','$datos', '$usuario', '$password', '$email',  '$rol' ,$telefono)";
              if (mysqli_query($cnn, $query)) {
                  echo json_encode(["status" => "success"]);
              } else {
@@ -40,7 +41,8 @@
      case 'update':
          // Actualizar un usuario
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-             $id = $_POST['id'];
+             $dnivie=$_POST['dnivie'];
+             $dniusu = $_POST['dniusu'];
              $datos = $_POST['datos'];
              $usuario = $_POST['usuario'];
              $password = $_POST['pass'];
@@ -49,7 +51,7 @@
              $telefono = $_POST['telefono'];
             
              
-             $query = "UPDATE usuarios SET  datos='$datos' , usuario = '$usuario', password = '$password', email = '$email', rol = '$rol' ,Telefono = $telefono WHERE idusu = $id";
+             $query = "UPDATE usuarios SET  idusudni='$dniusu', datos='$datos' , usuario = '$usuario', password = '$password', email = '$email', rol = '$rol' ,Telefono = $telefono WHERE idusudni = '$dnivie'";
              if (mysqli_query($cnn, $query)) {
                  echo json_encode(["status" => "success"]);
              } else {
@@ -62,7 +64,7 @@
      case 'readOne':
      //traer usuario 
         $id = $_GET['id'];
-        $sql = "SELECT * FROM usuarios WHERE idusu = $id";
+        $sql = "SELECT * FROM usuarios WHERE idusudni = '$id'";
         $result = mysqli_query($cnn, $sql);
  
         if ($result && mysqli_num_rows($result) > 0) {
@@ -79,7 +81,7 @@
          // Eliminar un usuario
          $id = $_GET['id'];
          echo $id;
-         $query = "DELETE FROM usuarios WHERE idusu = $id";
+         $query = "DELETE FROM usuarios WHERE idusudni = $id";
          if (mysqli_query($cnn, $query)) {
              echo json_encode(["status" => "success"]);
          } else {

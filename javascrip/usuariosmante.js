@@ -3,6 +3,7 @@
     //registrar un usuario 
     $(document).on('click', '#btreusu', function (e) {
         e.preventDefault();
+        let dni = $('#dniusu').val();
         let datos = $('#datosu').val();
         let usuario = $('#nomusuario').val();
         let password = $('#pass').val();
@@ -10,15 +11,24 @@
         let telefono = $('#telef').val();
         let rol = $('#rol').val();
         
-    if (!datos || !usuario || !password || !email || !telefono || !rol) {
+    if (!dni ||!datos || !usuario || !password || !email || !telefono || !rol) {
         alert('Por favor, completa todos los campos del formulario.');
         return; 
     }
-
+    if (!/^\d{8}$/.test(dni)) {
+        Swal.fire({
+            title: "¡Error!",
+            text: "El DNI debe contener exactamente 8 dígitos.",
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+        return;
+    }
         $.ajax({
             url: 'proceso/mantenusuario.php?action=create',
             type: 'POST',
             data: {
+                dni:dni,
                 datos: datos,
                 usuario: usuario,
                 password: password,
@@ -81,9 +91,9 @@ $(document).on('click', '.usuEditar', function () {
                 data: { id: id },
                 dataType: 'json',
                 success: function (data) {
-
-                    if ($('#idUsuario').length) {
-                        $('#idUsuario').val(data.idusu);
+                    if ($('#usuarioform').length) {
+                        $('#viejo_dni').val(data.idusudni);
+                        $('#dniusu').val(data.idusudni);
                         $('#datosu').val(data.datos);
                         $('#nomusuario').val(data.usuario);
                         $('#pass').val(data.password);
@@ -106,9 +116,11 @@ $(document).on('click', '.usuEditar', function () {
 });
 
 
+
 // ACTUALIZAR USUARIO
 $(document).on('click', '#btacusu', function () { 
-    let id = $('#idUsuario').val();
+    let dniviejo= $('#viejo_dni').val();
+    let dniusu = $('#dniusu').val();
     let datos = $('#datosu').val();
     let usuario = $('#nomusuario').val();
     let pass = $('#pass').val();
@@ -120,7 +132,8 @@ $(document).on('click', '#btacusu', function () {
         url: 'proceso/mantenusuario.php?action=update',
         type: 'POST',
         data: {
-            id: id,
+            dnivie:dniviejo,
+            dniusu: dniusu,
             datos: datos,
             usuario: usuario,
             pass: pass,

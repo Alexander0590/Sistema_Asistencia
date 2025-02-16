@@ -17,6 +17,7 @@
                 <thead id="tabla1">
                     <tr>
                         <th>Nº</th>
+                        <th>Dni</th>
                         <th>Datos</th>
                         <th>Usuario</th>
                         <th>Password</th>
