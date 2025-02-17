@@ -49,7 +49,7 @@
             break;
             
      case 'update':
-         // Actualizar un usuario
+         // Actualizar personal
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
              $dnivie=$_POST['dnivie'];
              $dni = $_POST['dni'];
@@ -73,17 +73,23 @@
                 $estado1="inactivo";
              }
              
-             
-             $query = "UPDATE personal SET  iddni= '$dni' , nombres_apellidos = '$nombres', modalidad_contratacion = '$modalidad1', cargo = '$cargo', fecha_nacimiento= '$fechanaci' ,edad = $edad ,sueldo= $sueldo ,foto = '$foto' ,estado = '$estado1'
-              WHERE iddni = '$dnivie'";
-             if (mysqli_query($cnn, $query)) {
-                 echo json_encode(["status" => "success"]);
-             } else {
-                 echo json_encode(["status" => "error", "message" => mysqli_error($cnn)]);
-             }
+             $check_query = "SELECT iddni FROM personal WHERE iddni = '$dni' AND iddni != '$dnivie'";
+                    $result = mysqli_query($cnn, $check_query);
+            
+                    if (mysqli_num_rows($result) > 0) {
+                        echo json_encode(["status" => "error", "message" => "El DNI ya está en uso por otro Trabajador."]);
+                    } else {
+                        $query = "UPDATE personal SET  iddni= '$dni' , nombres_apellidos = '$nombres', modalidad_contratacion = '$modalidad1', cargo = '$cargo', fecha_nacimiento= '$fechanaci' ,edad = $edad ,sueldo= $sueldo ,foto = '$foto' ,estado = '$estado1'
+                        WHERE iddni = '$dnivie'";                        
+                        if (mysqli_query($cnn, $query)) {
+                            echo json_encode(["status" => "success"]);
+                        } else {
+                            echo json_encode(["status" => "error", "message" => mysqli_error($cnn)]);
+                        }
+                    }
+
          }
          break;
-
 
      case 'readOne':
      //traer usuario 

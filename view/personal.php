@@ -24,15 +24,19 @@
             </div>
         </div>
     </div>
+    <!-- -------------------------------------------FIN DEL MODAL------------------------------------------------ -->
     <!-- Formulario de personal -->
   <div class="container-fluid  mb-4" id="mainContainer">
     <div id="centeredFormWrapper" class="d-flex justify-content-center align-items-center mt-3">
       <div class="row justify-content-center align-items-center">
         <div class="col-md-6 col-lg-8" id="formColumn">
           <div class="card shadow" id="formCard">
-            <div class="card-header text-center" id="cardHeader">
-              <b><i class="bi bi-person-plus"></i> REGISTRO DE PERSONAL </b>
-            </div>
+          <div class="card-header text-center" id="cardHeader">
+          <button type="button" id="btnRetroceder" class="btn btn-sm btn-outline-secondary float-start" style="display: none;">
+            <i class="bi bi-arrow-left "></i> 
+          </button>
+          <b><i class="bi bi-person-plus"></i> REGISTRO DE PERSONAL</b>
+        </div>
             <div class="card-body" id="formCardBody">
               <form class="row g-3" id="personalform">
               <input type="hidden" id="viejo_dni" name="viejo_dni">
@@ -73,14 +77,14 @@
                   <label for="fecha de nacimiento" class="form-label" >
                   <i class="bi bi-calendar"></i> Fecha de Nacimiento
                   </label>
-                  <input type="date" class="form-control" id="pfechanaci"  required>
+                  <input type="date" class="form-control" id="pfechanaci" max="2006-12-31" required>
                 </div>
 
                 <div class="col-md-2" >
                   <label for="edad" class="form-label" >
                   <i class="bi bi-file-earmark-person"></i> Edad
                   </label>
-                  <input type="number" class="form-control" id="pedad" placeholder="Edad" required>
+                  <input type="number" class="form-control" id="pedad"  readonly disabled>
                 </div>
 
                 <div class="col-md-3" >
@@ -129,6 +133,7 @@
       </div>
     </div>
   </div>
+  <!-- ---------------------------------------------FIN DEL FORMULARIO ---------------------------- --> 
   <script>
     //para habilitar el boton ver foto cuando se cargue un archivo
     document.getElementById("pfoto").addEventListener("change", function(event) {
@@ -150,6 +155,41 @@
   }
 });
 
+//----------------------------------------------------------------------//
+//funcion para calcular la edad
+const fechaInput = document.getElementById('pfechanaci');
+const edadInput = document.getElementById('pedad');
+
+const calcularEdad = (fechaNacimiento) => {
+  const fechaActual = new Date(); 
+  const fechaNac = new Date(fechaNacimiento); 
+
+  // Calcular la diferencia en años
+  let edad = fechaActual.getFullYear() - fechaNac.getFullYear();
+
+  const mesActual = fechaActual.getMonth();
+  const diaActual = fechaActual.getDate();
+  const mesNac = fechaNac.getMonth();
+  const diaNac = fechaNac.getDate();
+
+  if (mesActual < mesNac || (mesActual === mesNac && diaActual < diaNac)) {
+    edad--; 
+  }
+
+  return edad;
+};
+
+// Escuchar el evento change en el campo de fecha
+fechaInput.addEventListener('change', () => {
+  const fechaSeleccionada = fechaInput.value; 
+
+  if (fechaSeleccionada) {
+    const edad = calcularEdad(fechaSeleccionada); 
+    edadInput.value = edad; 
+  } else {
+    edadInput.value = ''; 
+  }
+});
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

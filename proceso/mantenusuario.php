@@ -38,28 +38,33 @@
             echo json_encode($usuarios);
             break;
             
-     case 'update':
-         // Actualizar un usuario
-         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-             $dnivie=$_POST['dnivie'];
-             $dniusu = $_POST['dniusu'];
-             $datos = $_POST['datos'];
-             $usuario = $_POST['usuario'];
-             $password = $_POST['pass'];
-             $email = $_POST['email'];
-             $rol = $_POST['rol'];
-             $telefono = $_POST['telefono'];
+            case 'update':
+                // Actualizar un usuario
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $dnivie = $_POST['dnivie'];
+                    $dniusu = $_POST['dniusu'];
+                    $datos = $_POST['datos'];
+                    $usuario = $_POST['usuario'];
+                    $password = $_POST['pass'];
+                    $email = $_POST['email'];
+                    $rol = $_POST['rol'];
+                    $telefono = $_POST['telefono'];
             
-             
-             $query = "UPDATE usuarios SET  idusudni='$dniusu', datos='$datos' , usuario = '$usuario', password = '$password', email = '$email', rol = '$rol' ,Telefono = $telefono WHERE idusudni = '$dnivie'";
-             if (mysqli_query($cnn, $query)) {
-                 echo json_encode(["status" => "success"]);
-             } else {
-                 echo json_encode(["status" => "error", "message" => mysqli_error($cnn)]);
-             }
-         }
-         break;
-
+                    $check_query = "SELECT idusudni FROM usuarios WHERE idusudni = '$dniusu' AND idusudni != '$dnivie'";
+                    $result = mysqli_query($cnn, $check_query);
+            
+                    if (mysqli_num_rows($result) > 0) {
+                        echo json_encode(["status" => "error", "message" => "El DNI ya está en uso por otro usuario."]);
+                    } else {
+                        $query = "UPDATE usuarios SET idusudni='$dniusu', datos='$datos', usuario='$usuario', password='$password', email='$email', rol='$rol', Telefono=$telefono WHERE idusudni = '$dnivie'";
+                        if (mysqli_query($cnn, $query)) {
+                            echo json_encode(["status" => "success"]);
+                        } else {
+                            echo json_encode(["status" => "error", "message" => mysqli_error($cnn)]);
+                        }
+                    }
+                }
+                break;
 
      case 'readOne':
      //traer usuario 

@@ -15,6 +15,9 @@
         <div class="col-md-6 col-lg-8" id="formColumn">
           <div class="card shadow" id="formCard">
             <div class="card-header text-center" id="cardHeader">
+            <button type="button" id="btnRetroceder2" class="btn btn-sm btn-outline-secondary float-start" style="display: none;">
+            <i class="bi bi-arrow-left "></i> 
+            </button>
               <b><i class="bi bi-person-plus"></i> REGISTRO DE USUARIO</b>
             </div>
             <div class="card-body" id="formCardBody">

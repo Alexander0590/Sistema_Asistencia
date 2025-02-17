@@ -210,6 +210,7 @@ $(document).on('click', '.perEditar', function () {
 
                         $('#btreper').hide();  
                         $('#btnLimper').hide();  
+                        $('#btnRetroceder').show();
                         $('#btacuper').show();
                         $('#pcargo').val(data.cargo); 
                         $('#pfechanaci').val(data.fecha_nacimiento); 
@@ -280,20 +281,35 @@ $(document).on('click', '#btacuper', function () {
             foto : foto,
             estado : estado
         },
-        success: function () {
-            alert('Usuario actualizado correctamente');
+        success: function (response) {
+            let result = JSON.parse(response);
 
+            if (result.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Personal actualizado correctamente',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    $('#personalform')[0].reset();
+                    $('#btreper').show();  
+                    $('#btacuper').hide();
+        
 
-            $('#personalform')[0].reset();
-            $('#btreper').show();  
-            $('#btacuper').hide();
-
-
-            $("#vistas").fadeOut(200, function () {
-                $(this).load("view/listadepersonal.php", function () {
-                    $(this).fadeIn(200);
+                    $("#vistas").fadeOut(200, function () {
+                        $(this).load("view/listadepersonal.php", function () {
+                            $(this).fadeIn(200);
+                        });
+                    });
                 });
-            });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: result.message || 'Hubo un error al actualizar el usuario',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
         },
         error: function (error) {
             console.error('Error al actualizar usuario:', error);
@@ -307,9 +323,6 @@ $(document).on('click', '.perImpri', function () {
         url: 'carnet/generarcarnet.php', 
         type: 'GET',
         data: { id: id}, 
-        xhrFields: {
-            responseType: 'blob' 
-        },
         success: function (response) {
            
             let blob = new Blob([response], { type: 'application/pdf' });
@@ -321,6 +334,14 @@ $(document).on('click', '.perImpri', function () {
         error: function (error) {
             console.error("Error al generar el carnet:", error);
         }
+    });
+});
+//boton de retroceder personal
+$(document).on('click', '#btnRetroceder', function () {
+    $("#vistas").fadeOut(200, function () {
+        $(this).load("view/listadepersonal.php", function () {
+            $(this).fadeIn(200);
+        });
     });
 });
     

@@ -101,6 +101,8 @@ $(document).on('click', '.usuEditar', function () {
                         $('#rol').val(data.rol);
                         $('#telef').val(data.Telefono);
 
+                        $('#btnLimpiar').hide();  
+                        $('#btnRetroceder2').show();
                         $('#btreusu').hide();
                         $('#btacusu').show();
                     } else {
@@ -118,8 +120,8 @@ $(document).on('click', '.usuEditar', function () {
 
 
 // ACTUALIZAR USUARIO
-$(document).on('click', '#btacusu', function () { 
-    let dniviejo= $('#viejo_dni').val();
+$(document).on('click', '#btacusu', function () {
+    let dniviejo = $('#viejo_dni').val();
     let dniusu = $('#dniusu').val();
     let datos = $('#datosu').val();
     let usuario = $('#nomusuario').val();
@@ -132,7 +134,7 @@ $(document).on('click', '#btacusu', function () {
         url: 'proceso/mantenusuario.php?action=update',
         type: 'POST',
         data: {
-            dnivie:dniviejo,
+            dnivie: dniviejo,
             dniusu: dniusu,
             datos: datos,
             usuario: usuario,
@@ -141,27 +143,52 @@ $(document).on('click', '#btacusu', function () {
             telefono: telefono,
             rol: rol
         },
-        success: function () {
-            alert('Usuario actualizado correctamente');
+        success: function (response) {
+            let result = JSON.parse(response);
 
+            if (result.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Usuario actualizado correctamente',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    $('#usuarioform')[0].reset();
+                    $('#btreusu').show();
+                    $('#btacusu').hide();
 
-            $('#usuarioform')[0].reset();
-            $('#btreusu').show();
-            $('#btacusu').hide();
-
-
-            $("#vistas").fadeOut(200, function () {
-                $(this).load("view/listadeusuarios.php", function () {
-                    $(this).fadeIn(200);
+                    $("#vistas").fadeOut(200, function () {
+                        $(this).load("view/listadeusuarios.php", function () {
+                            $(this).fadeIn(200);
+                        });
+                    });
                 });
-            });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: result.message || 'Hubo un error al actualizar el usuario',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
         },
-        error: function ( error) {
+        error: function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al intentar actualizar el usuario. Por favor, inténtalo de nuevo.',
+                confirmButtonText: 'Aceptar'
+            });
             console.error('Error al actualizar usuario:', error);
         }
     });
 });
-
-
-
+//boton de retroceder para usuario
+$(document).on('click', '#btnRetroceder2', function () {
+    $("#vistas").fadeOut(200, function () {
+        $(this).load("view/listadeusuarios.php", function () {
+            $(this).fadeIn(200);
+        });
+    });
+});
     
